@@ -1,7 +1,9 @@
+import { RoutesComponent } from "./Routes";
+
 function App() {
   return (
     <div>
-      <h3>HELLO WORLD</h3>
+      <RoutesComponent />
     </div>
   );
 }
