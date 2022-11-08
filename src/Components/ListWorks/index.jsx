@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { CardWork } from "../Cards/CardWorks";
-import { ModalAddWork } from "./ModalAddWork";
+import { ModalAddWork } from "../Modal/ModalAddWork";
 import { api } from "../../Services";
-export const FormWorks = ({ setShowPage }) => {
+
+export const ListWorks = ({ setShowPage }) => {
   const [works, setWorks] = useState([]);
   const [showModalAddWork, setShowModalAddWorks] = useState(false);
   const user_id = localStorage.getItem("@kenziehub:id");

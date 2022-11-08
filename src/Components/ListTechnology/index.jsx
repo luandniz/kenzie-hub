@@ -1,10 +1,10 @@
 import { api } from "../../Services";
 import { useEffect, useState } from "react";
-import { ModalAddTechnology } from "./ModalAddTechnology";
-import { ModalEditTechnology } from "./ModalEditTechnology";
+import { ModalAddTechnology } from "../Modal/ModalAddTechnology";
+import { ModalEditTechnology } from "../Modal/ModalEditTechnology";
 import { CardTechnology } from "../Cards/CardTechnology";
 
-export const FormTechnology = ({ setShowPage }) => {
+export const ListTechnology = ({ setShowPage }) => {
   const [token] = useState(localStorage.getItem("@kenziehub:token") || "");
   const userId = localStorage.getItem("@kenziehub:id") || "";
   const [techs, setTechs] = useState([]);

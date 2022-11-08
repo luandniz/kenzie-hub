@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { FormTechnology } from "../../Components/FormTechnology";
-import { FormWorks } from "../../Components/FormWorks";
+import { ListTechnology } from "../../Components/ListTechnology";
+import { ListWorks } from "../../Components/ListWorks";
 import { Header } from "../../Components/Header";
 
 export const Dashboard = () => {
@@ -11,9 +11,9 @@ export const Dashboard = () => {
 
       <div className="w-full flex justify-center">
         {showPage ? (
-          <FormTechnology setShowPage={setShowPage} />
+          <ListTechnology setShowPage={setShowPage} />
         ) : (
-          <FormWorks setShowPage={setShowPage} />
+          <ListWorks setShowPage={setShowPage} />
         )}
       </div>
     </div>
