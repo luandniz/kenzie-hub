@@ -1,20 +1,28 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../Button";
 
-export const Header = () => {
+export const Header = ({ setAuth }) => {
   const [user] = useState(JSON.parse(localStorage.getItem("@kenziehub:user")));
+  const NavigateUse = useNavigate();
+  const logout = () => {
+    localStorage.clear();
+    setAuth(false);
+    NavigateUse("/");
+  };
+
   return (
     <header className="h-20 flex items-center ">
       <div className="flex w-full justify-between px-10 ">
         <h3 className="font-bold text-white text-3xl">TECH HUB</h3>
         <div className="flex flex-row space-x-4">
           <div className="flex flex-col text-end ">
-            <h3 className="font-bold text-blue-400 capitalize">{user.name}</h3>
+            <h3 className="font-bold text-blue-400 capitalize">{user?.name}</h3>
             <h3 className="font-base text-white text-md capitalize text-xs">
-              {user.course_module}
+              {user?.course_module}
             </h3>
           </div>
-          <Button children="Logout" width={"w-9"}>
+          <Button onClick={logout} width={"w-9"}>
             <span className="material-icons">logout</span>
           </Button>
         </div>

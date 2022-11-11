@@ -2,16 +2,39 @@ import { useState, useEffect } from "react";
 import { CardWork } from "../Cards/CardWorks";
 import { ModalAddWork } from "../Modal/ModalAddWork";
 import { api } from "../../Services";
+import { ModalEditWork } from "../Modal/ModalEditTWork";
 
 export const ListWorks = ({ setShowPage }) => {
   const [works, setWorks] = useState([]);
   const [showModalAddWork, setShowModalAddWorks] = useState(false);
+  const [showModalEditWork, setShowModalEditWork] = useState(false);
+  const [workElement, setWorkElement] = useState([]);
   const user_id = localStorage.getItem("@kenziehub:id");
+  const [token] = useState(localStorage.getItem("@kenziehub:token") || "");
+
+  console.log(workElement);
 
   const getWorks = () => {
     api.get(`/users/${user_id}`).then((response) => {
       setWorks(response.data.works);
     });
+  };
+
+  const deleteWork = (work_id) => {
+    console.log(work_id);
+    api
+      .delete(`/users/works/${work_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        getWorks();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
@@ -25,6 +48,14 @@ export const ListWorks = ({ setShowPage }) => {
           setShowModalAddWorks={setShowModalAddWorks}
           getWorks={getWorks}
           setWorks={setWorks}
+        />
+      )}
+
+      {showModalEditWork && (
+        <ModalEditWork
+          setShowModalEditWork={setShowModalEditWork}
+          workElement={workElement}
+          getWorks={getWorks}
         />
       )}
 
@@ -49,7 +80,13 @@ export const ListWorks = ({ setShowPage }) => {
 
         <div className="bg-[#212529] space-y-3 p-5 mt-4">
           {works.map((element, index) => (
-            <CardWork key={index} element={element} />
+            <CardWork
+              key={index}
+              element={element}
+              deleteWork={deleteWork}
+              setShowModalEditWork={setShowModalEditWork}
+              setWorkElement={setWorkElement}
+            />
           ))}
         </div>
       </div>

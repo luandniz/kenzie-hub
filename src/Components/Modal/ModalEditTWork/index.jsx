@@ -4,14 +4,19 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { api } from "../../../Services";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-export const ModalAddTechnology = ({ setShowModalAddTechs, getTechnology }) => {
+export const ModalEditWork = ({
+  setShowModalEditWork,
+  workElement,
+  getWorks,
+}) => {
   const [token] = useState(localStorage.getItem("@kenziehub:token") || "");
-
+  const work_id = workElement.id;
   const schema = yup.object().shape({
     title: yup.string().required("Campo Obrigatório"),
-    status: yup.string().required("Campo Obrigatório"),
+    description: yup.string().required("Campo Obrigatório"),
+    deploy_url: yup.string().required("Campo Obrigatório"),
   });
 
   const {
@@ -25,15 +30,14 @@ export const ModalAddTechnology = ({ setShowModalAddTechs, getTechnology }) => {
 
   const onSubmit = (data) => {
     api
-      .post("/users/techs", data, {
+      .put(`/users/works/${work_id}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(() => {
-        getTechnology();
-        reset();
-        setShowModalAddTechs(false);
+      .then((response) => {
+        console.log(response);
+        getWorks();
       })
       .catch((error) => console.log(error));
   };
@@ -49,7 +53,7 @@ export const ModalAddTechnology = ({ setShowModalAddTechs, getTechnology }) => {
             type="button"
             className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
             data-modal-toggle="popup-modal"
-            onClick={() => setShowModalAddTechs(false)}
+            onClick={() => setShowModalEditWork(false)}
           >
             <span className="material-icons">close</span>
             <span className="sr-only">Close modal</span>
@@ -57,27 +61,34 @@ export const ModalAddTechnology = ({ setShowModalAddTechs, getTechnology }) => {
           <div className="p-6">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 w-96 ">
               <h3 className="text-center text-blue-500 font-bold text-2xl">
-                Adicionar Tecnologia
+                Editar Status da Tecnologia
               </h3>
-
               <Input
-                placeholder="Tecnologia"
-                icon="email"
-                type="text"
-                register={register}
-                name="title"
-                error={errors.title?.message}
-              />
-
-              <Input
-                placeholder="status"
+                placeholder="Nome do Projeto"
                 type="text"
                 icon="lock"
                 register={register}
-                name="status"
-                error={errors.status?.message}
+                name="title"
+                error={errors.title?.message}
+                // value={workElement.title}
               />
-              <Button width={"w-full"} children="Adicionar" type="submit" />
+              <Input
+                placeholder="Descrição"
+                type="text"
+                icon="lock"
+                register={register}
+                name="description"
+                error={errors.description?.message}
+              />
+              <Input
+                placeholder="URL"
+                type="text"
+                icon="lock"
+                register={register}
+                name="deploy_url"
+                error={errors.deploy_url?.message}
+              />
+              <Button width={"w-full"} children="Salvar" type="submit" />
             </form>
           </div>
         </div>

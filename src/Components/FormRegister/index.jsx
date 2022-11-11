@@ -48,7 +48,7 @@ export const FormRegister = ({ setRegisterComponent }) => {
     <div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="space-y-3 min-w-3/4 bg-gray-100 py-4 px-5 rounded"
+        className="space-y-3 min-w-3/4 bg-[#212529] py-4 px-5 rounded"
       >
         <h3 className="text-center text-blue-500 font-bold text-2xl">
           SIGN UP
@@ -109,14 +109,14 @@ export const FormRegister = ({ setRegisterComponent }) => {
           />
         </div>
         <div>
-          <Button children="Cadastrar" />
-          <div className="flex flex-row text-sm mt-4 space-x-2 text-gray-500">
+          <Button width={"w-full"} children="Cadastrar" />
+          <div className="flex flex-row justify-end text-sm mt-4 space-x-2 text-white">
             <p>Já possui cadastro?</p>
             <p
               onClick={() => setRegisterComponent(false)}
               className="text-blue-500 cursor-pointer"
             >
-              Vá para Login.
+              Faça o Login.
             </p>
           </div>
         </div>

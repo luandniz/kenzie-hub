@@ -26,8 +26,8 @@ export const Input = ({
         placeholder={placeholder}
       />
       {!!error && (
-        <label className="z-10 absolute left-[3px] top-[-6px] text-[0.65rem] text-gray-500 dark:text-gray-300 ">
-          <span className="text-red-500 p-1 bg-gray-100  space-x-2">
+        <label className="z-10 absolute left-[3px] top-[-6px] text-[0.65rem] text-gray-500 dark:text-gray-300  ">
+          <span className="text-white p-1 bg-[#212529] rounded  space-x-2">
             ** {error}
           </span>
         </label>

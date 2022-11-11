@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { api } from "../../Services";
 import { useNavigate } from "react-router-dom";
 
-export const FormLogin = ({ setRegisterComponent }) => {
+export const FormLogin = ({ setRegisterComponent, setAuth }) => {
   const Navigate = useNavigate();
 
   const schema = yup.object().shape({
@@ -36,7 +36,8 @@ export const FormLogin = ({ setRegisterComponent }) => {
           JSON.stringify(response.data.user)
         );
         localStorage.setItem("@kenziehub:id", response.data.user.id);
-        Navigate("/Dashboard");
+        Navigate("/dashboard");
+        setAuth(true);
 
         reset();
       })
@@ -48,7 +49,7 @@ export const FormLogin = ({ setRegisterComponent }) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-3 w-96  bg-gray-100 py-4 px-5 rounded"
+      className="space-y-3 w-96 bg-[#212529] py-4 px-5 rounded"
     >
       <h3 className="text-center text-blue-500 font-bold text-2xl">SIGN IN</h3>
 
@@ -70,9 +71,10 @@ export const FormLogin = ({ setRegisterComponent }) => {
         error={errors.password?.message}
       />
 
-      <div className="">
-        <Button children="Cadastrar" />
-        <div className="flex flex-row text-sm mt-4 space-x-2 text-gray-500">
+      <div>
+        <Button width={"w-full"} children="Logar" />
+
+        <div className="flex flex-row justify-center text-sm mt-4 space-x-2 text-white">
           <p>Ainda não possui cadastro?</p>
           <p
             onClick={() => setRegisterComponent(true)}
